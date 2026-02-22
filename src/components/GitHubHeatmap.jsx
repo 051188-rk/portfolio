@@ -167,25 +167,30 @@ export default function GitHubHeatmap() {
         <div className="sectionHint">@{username}</div>
       </div>
 
-      <div className="heatmap" aria-label="GitHub contributions heatmap">
-        {weeks.map((week) => (
-          <div key={week.contributionDays[0]?.date ?? Math.random()} className="heatmapCol">
-            {week.contributionDays.map((day) => {
+      <div className="heatmapWrap" aria-label="GitHub contributions heatmap" style={{ "--weeks": weeks.length }}>
+        <div className="heatmapGrid" role="grid" aria-label="GitHub contributions heatmap">
+          {weeks.map((week, weekIndex) =>
+            week.contributionDays.map((day) => {
               const title = `${day.date}: ${day.contributionCount} contributions`;
               return (
                 <div
                   key={day.date}
+                  role="gridcell"
                   className="heatmapCell"
                   title={title}
                   aria-label={title}
-                  style={{ backgroundColor: day.color }}
+                  style={{
+                    backgroundColor: day.contributionCount === 0 ? "#1f242c" : day.color,
+                    gridColumnStart: weekIndex + 1,
+                    gridRowStart: day.weekday + 1,
+                  }}
                   data-count={day.contributionCount}
                   data-max={maxCount}
                 />
               );
-            })}
-          </div>
-        ))}
+            })
+          )}
+        </div>
       </div>
 
       <div className="heatmapMeta">
@@ -198,7 +203,6 @@ export default function GitHubHeatmap() {
           <span className="heatmapSwatch" style={{ background: "#39d353" }} />
           <span className="sectionHint">More</span>
         </div>
-        <div className="sectionHint">Data: GitHub GraphQL</div>
       </div>
     </div>
   );
