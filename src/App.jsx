@@ -12,6 +12,7 @@ import "./App.css";
 import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
 import GitHubHeatmap from "./components/GitHubHeatmap";
+import LeetCodeHeatmap from "./components/LeetCodeHeatmap";
 import Hero from "./components/Hero";
 import EducationSection from "./components/sections/EducationSection";
 import ExperienceSection from "./components/sections/ExperienceSection";
@@ -78,6 +79,12 @@ function App() {
       <Section id="github" title="GitHub" hint="Contributions">
         <div className="grid">
           <GitHubHeatmap />
+        </div>
+      </Section>
+
+      <Section id="leetcode" title="LeetCode" hint="Submissions">
+        <div className="grid">
+          <LeetCodeHeatmap />
         </div>
       </Section>
 
