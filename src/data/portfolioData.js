@@ -12,12 +12,21 @@ export const portfolioData = {
       { label: "Email", href: "mailto:you@example.com" },
       { label: "GitHub", href: "https://github.com/" },
       { label: "LinkedIn", href: "https://linkedin.com/" },
+      { label: "LeetCode", href: "https://leetcode.com/" },
     ],
   },
   skills: [
     {
       title: "LANGUAGES",
-      items: ["JavaScript", "TypeScript", "C", "C++", "HTML", "CSS"],
+      items: [
+        "JavaScript",
+        "TypeScript",
+        "Python",
+        "C",
+        "C++",
+        "HTML",
+        "CSS",
+      ],
     },
     {
       title: "FRAMEWORKS / LIBRARIES",
@@ -28,13 +37,14 @@ export const portfolioData = {
         "Tailwind",
         "TanStack Query",
         "Framer Motion",
+        "LangChain",
       ],
     },
     { title: "BACKEND & RUNTIME", items: ["Node.js"] },
-    { title: "DATABASE", items: ["MongoDB"] },
+    { title: "DATABASE", items: ["MongoDB", "PostgreSQL", "MySQL", "SQLite"] },
     {
       title: "DEVELOPER TOOLS",
-      items: ["Git", "GitHub", "VS Code", "Vercel", "Postman"],
+      items: ["Git", "GitHub", "Cursor", "n8n", "Vercel", "Postman"],
     },
   ],
   experience: [

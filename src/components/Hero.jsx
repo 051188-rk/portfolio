@@ -1,10 +1,23 @@
 import Reveal from "./Reveal";
 import {
   FaArrowUpRightFromSquare,
+  FaEnvelope,
+  FaGithub,
+  FaLinkedin,
   FaLocationDot,
   FaMoon,
   FaSun,
 } from "react-icons/fa6";
+import { SiLeetcode } from "react-icons/si";
+
+function getLinkIcon(label) {
+  const key = String(label).toLowerCase();
+  if (key === "email") return FaEnvelope;
+  if (key === "github") return FaGithub;
+  if (key === "linkedin") return FaLinkedin;
+  if (key === "leetcode" || key === "leet code") return SiLeetcode;
+  return null;
+}
 
 export default function Hero({ hero, theme, onToggleTheme }) {
   return (
@@ -46,6 +59,10 @@ export default function Hero({ hero, theme, onToggleTheme }) {
                 target="_blank"
                 rel="noreferrer"
               >
+                {(() => {
+                  const Icon = getLinkIcon(l.label);
+                  return Icon ? <Icon /> : null;
+                })()}
                 {l.label}
                 <FaArrowUpRightFromSquare />
               </a>

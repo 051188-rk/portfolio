@@ -1,9 +1,9 @@
 import Reveal from "../Reveal";
 import Section from "../Section";
 import {
-  FaArrowUpRightFromSquare,
   FaCodeBranch,
   FaGlobe,
+  FaLink,
   FaLayerGroup,
 } from "react-icons/fa6";
 
@@ -13,7 +13,7 @@ export default function ProjectsSection({ projects }) {
       <div className="grid">
         {projects.map((p, idx) => (
           <Reveal key={p.name} delay={idx * 0.06}>
-            <div className="card">
+            <div className="card cardSlim">
               <div className="cardInner">
                 <div className="cardMedia">
                   {p.thumbnail ? (
@@ -58,6 +58,30 @@ export default function ProjectsSection({ projects }) {
                   </div>
 
                   <p className="cardSub">{p.desc}</p>
+                  <div className="chipRow">
+                    {p.github ? (
+                      <a
+                        className="chip"
+                        href={p.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaCodeBranch className="chipIcon" />
+                        GitHub
+                      </a>
+                    ) : null}
+                    {p.live ? (
+                      <a
+                        className="chip"
+                        href={p.live}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaLink className="chipIcon" />
+                        Website
+                      </a>
+                    ) : null}
+                  </div>
                   <div className="chipRow">
                     {p.stack.map((s) => (
                       <span key={s} className="chip">

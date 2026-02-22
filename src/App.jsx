@@ -11,6 +11,7 @@ import "./App.css";
 
 import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
+import GitHubHeatmap from "./components/GitHubHeatmap";
 import Hero from "./components/Hero";
 import EducationSection from "./components/sections/EducationSection";
 import ExperienceSection from "./components/sections/ExperienceSection";
@@ -20,6 +21,8 @@ import SkillsSection from "./components/sections/SkillsSection";
 
 import { portfolioData } from "./data/portfolioData";
 import { useActiveSection } from "./hooks/useActiveSection";
+
+import Section from "./components/Section";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -34,7 +37,14 @@ function App() {
   const data = useMemo(() => portfolioData, []);
 
   const sectionIds = useMemo(
-    () => ["skills", "experience", "projects", "hackathons", "education"],
+    () => [
+      "skills",
+      "experience",
+      "projects",
+      "github",
+      "hackathons",
+      "education",
+    ],
     []
   );
   const activeId = useActiveSection(sectionIds);
@@ -44,6 +54,7 @@ function App() {
       { id: "skills", label: "Skills", icon: FaCode },
       { id: "experience", label: "Experience", icon: FaBriefcase },
       { id: "projects", label: "Projects", icon: FaFolderOpen },
+      { id: "github", label: "GitHub", icon: FaCode },
       { id: "hackathons", label: "Hackathons", icon: FaTrophy },
       { id: "education", label: "Education", icon: FaGraduationCap },
     ],
@@ -63,6 +74,13 @@ function App() {
       <SkillsSection skills={data.skills} />
       <ExperienceSection experience={data.experience} />
       <ProjectsSection projects={data.projects} />
+
+      <Section id="github" title="GitHub" hint="Contributions">
+        <div className="grid">
+          <GitHubHeatmap />
+        </div>
+      </Section>
+
       <HackathonsSection hackathons={data.hackathons} />
       <EducationSection education={data.education} />
 

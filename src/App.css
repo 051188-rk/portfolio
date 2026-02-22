@@ -71,7 +71,6 @@
 
 .section {
   padding: 44px 0;
-  border-top: 1px solid var(--border);
 }
 
 .sectionHeader {
@@ -118,6 +117,15 @@
   -webkit-backdrop-filter: blur(14px);
   text-align: left;
   min-height: 144px;
+}
+
+.cardSlim {
+  min-height: 118px;
+  padding: 12px 12px;
+}
+
+.cardSlim .cardMedia {
+  height: 82px;
 }
 
 .cardWide {
@@ -180,6 +188,52 @@
   min-width: 0;
 }
 
+.heatmap {
+  margin-top: 14px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  overflow-x: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.heatmapCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.heatmapCell {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+
+.heatmapMeta {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.heatmapLegend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.heatmapSwatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+
 .cardTitle {
   margin: 0;
   font-family: var(--mono);
@@ -240,11 +294,31 @@
 }
 
 .footer {
-  padding: 40px 0 96px;
-  border-top: 1px solid var(--border);
+  padding: 44px 0 96px;
   color: var(--muted);
   font-family: var(--mono);
   font-size: 12px;
+}
+
+.footerCard {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--bg) 78%, transparent),
+    color-mix(in srgb, var(--card) 88%, transparent)
+  );
+  border-radius: 18px;
+  padding: 16px 16px;
+  box-shadow: 0 22px 65px var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .bottomNavWrap {

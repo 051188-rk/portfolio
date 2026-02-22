@@ -8,7 +8,7 @@ export default function EducationSection({ education }) {
       <div className="grid">
         {education.map((e, idx) => (
           <Reveal key={e.school + e.period} delay={idx * 0.06}>
-            <div className="card cardWide">
+            <div className="card cardWide cardSlim">
               <div className="cardInner">
                 <div className="cardMedia">
                   {e.logo ? (
