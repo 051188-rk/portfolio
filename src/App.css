@@ -240,6 +240,82 @@
   border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
 }
 
+/* ── Custom heatmap tooltip ─────────────────────────────────── */
+.heatmapTooltip {
+  position: fixed;
+  transform: translate(-50%, calc(-100% - 10px));
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 32px var(--shadow);
+  pointer-events: none;
+  white-space: nowrap;
+  animation: tooltipIn 0.14s ease both;
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 4px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, calc(-100% - 10px));
+  }
+}
+
+.heatmapTooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 1px;
+  backdrop-filter: blur(18px);
+}
+
+.heatmapTooltipDot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+
+.heatmapTooltipBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.heatmapTooltipCount {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1;
+}
+
+.heatmapTooltipDate {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1;
+}
+
 .cardTitle {
   margin: 0;
   font-family: var(--mono);

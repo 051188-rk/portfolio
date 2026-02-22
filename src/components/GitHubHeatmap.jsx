@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql";
 
@@ -100,6 +101,25 @@ export default function GitHubHeatmap() {
     return { maxCount: max };
   }, [weeks]);
 
+  const [tooltip, setTooltip] = useState(null); // { x, y, date, count, color }
+  const hideTimer = useRef(null);
+
+  const handleCellEnter = (e, day) => {
+    clearTimeout(hideTimer.current);
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltip({
+      x: rect.left + rect.width / 2,
+      y: rect.top,
+      date: day.date,
+      count: day.contributionCount,
+      color: day.contributionCount === 0 ? "#1f242c" : day.color,
+    });
+  };
+
+  const handleCellLeave = () => {
+    hideTimer.current = setTimeout(() => setTooltip(null), 120);
+  };
+
   if (state.status === "missing_env") {
     return (
       <div className="card cardWide cardSlim">
@@ -171,14 +191,15 @@ export default function GitHubHeatmap() {
         <div className="heatmapGrid" role="grid" aria-label="GitHub contributions heatmap">
           {weeks.map((week, weekIndex) =>
             week.contributionDays.map((day) => {
-              const title = `${day.date}: ${day.contributionCount} contributions`;
+              const label = `${day.date}: ${day.contributionCount} contributions`;
               return (
                 <div
                   key={day.date}
                   role="gridcell"
                   className="heatmapCell"
-                  title={title}
-                  aria-label={title}
+                  aria-label={label}
+                  onMouseEnter={(e) => handleCellEnter(e, day)}
+                  onMouseLeave={handleCellLeave}
                   style={{
                     backgroundColor: day.contributionCount === 0 ? "#1f242c" : day.color,
                     gridColumnStart: weekIndex + 1,
@@ -192,6 +213,26 @@ export default function GitHubHeatmap() {
           )}
         </div>
       </div>
+
+      {tooltip && createPortal(
+        <div
+          className="heatmapTooltip"
+          style={{ left: tooltip.x, top: tooltip.y }}
+        >
+          <span className="heatmapTooltipDot" style={{ background: tooltip.color }} />
+          <div className="heatmapTooltipBody">
+            <span className="heatmapTooltipCount">
+              {tooltip.count === 0 ? "No contributions" : `${tooltip.count} contribution${tooltip.count !== 1 ? "s" : ""}`}
+            </span>
+            <span className="heatmapTooltipDate">
+              {new Date(tooltip.date + "T00:00:00").toLocaleDateString("en", {
+                weekday: "short", month: "short", day: "numeric", year: "numeric",
+              })}
+            </span>
+          </div>
+        </div>,
+        document.body
+      )}
 
       <div className="heatmapMeta">
         <div className="heatmapLegend">
